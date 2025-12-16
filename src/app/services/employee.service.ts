@@ -8,33 +8,32 @@ import { Employee } from '../models/employee';
 })
 export class EmployeeService {
 
-  private baseUrl = 'http://localhost:8085/User';  // Your Spring Boot API
+  private baseUrl = 'http://localhost:8085/User';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  createUser(employee: Employee): Observable<Employee> {
+  return this.http.post<Employee>('http://localhost:8085/User/createuser',employee)
+  };
 
-getAllUsers(): Observable<Employee[]> {
+  getAllUsers(): Observable<Employee[]> {
     return this.http.get<Employee[]>(`${this.baseUrl}/getallusers`);
   }
 
-  getAll(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.baseUrl);
+  getUserById(id: number): Observable<Employee> {
+    return this.http.get<Employee>(`${this.baseUrl}/getuser/${id}`);
   }
 
-  getById(id: number): Observable<Employee> {
-    return this.http.get<Employee>(`${this.baseUrl}/${id}`);
+  updateUser(id: number, employee: Employee): Observable<Employee> {
+    return this.http.put<Employee>(`${this.baseUrl}/updateuser/${id}`,
+    employee);
+
   }
 
-  create(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(this.baseUrl, employee);
+  deleteUser(id: number) {
+    return this.http.delete<void>(
+      `http://localhost:8085/User/harddelete/${id}`
+    );
   }
 
-  update(id: number, employee: Employee): Observable<Employee> {
-    return this.http.put<Employee>(`${this.baseUrl}/${id}`, employee);
-  }
-
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
-  }
 }
-

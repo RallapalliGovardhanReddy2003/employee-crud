@@ -3,24 +3,36 @@
   <h2 *ngIf="id">Edit Employee</h2>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <div>
-      <label>First name</label>
-      <input formControlName="firstname" />
-      <div *ngIf="form.get('firstname')?.touched && form.get('firstname')?.invalid">First name is required</div>
-    </div>
 
-    <div>
-      <label>Last name</label>
-      <input formControlName="lastname" />
-      <div *ngIf="form.get('lastname')?.touched && form.get('lastname')?.invalid">Last name is required</div>
-    </div>
+    <input
+      type="text"
+      formControlName="firstname"
+      placeholder="First Name"
+    />
 
-    <div>
-      <label>Email</label>
-      <input formControlName="email" />
-      <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">Invalid email</div>
-    </div>
-    <button type="submit" (click)="submit()">Submit</button>
+    <input
+      type="text"
+      formControlName="lastname"
+      placeholder="Last Name"
+    />
+
+    <input
+      type="email"
+      formControlName="emailid"
+      placeholder="Email"
+    />
+
+    <input
+      type="number"
+      formControlName="monbno"
+      placeholder="Mobile Number"
+    />
+
+    <button type="submit">
+      {{ id ? 'Update' : 'Create' }}
+    </button>
+
+
     <button type="button" (click)="cancel()">Cancel</button>
   </form>
 </div>

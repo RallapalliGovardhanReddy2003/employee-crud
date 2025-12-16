@@ -2,6 +2,6 @@ export interface Employee {
   id?: number;
   firstname: string;
   lastname: string;
-  email?: string;
-  deleted?: boolean;
+  emailid: string;   // ✅ ADD THIS
+  monbno: number;
 }
