@@ -13,7 +13,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   createUser(employee: Employee): Observable<Employee> {
-  return this.http.post<Employee>('http://localhost:8085/User/createuser',employee)
+  return this.http.post<Employee>('${this.baseUrl}/createuser',employee)
   };
 
   getAllUsers(): Observable<Employee[]> {
@@ -35,5 +35,8 @@ export class EmployeeService {
       `http://localhost:8085/User/harddelete/${id}`
     );
   }
+  getAllUsersWithDeleted(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(`${this.baseUrl}/getalluserswithdeleted`);
 
+}
 }
