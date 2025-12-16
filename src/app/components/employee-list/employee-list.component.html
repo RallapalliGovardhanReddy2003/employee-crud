@@ -1,31 +1,41 @@
 <h2>Employee List</h2>
+
+<button (click)="openCreate()">Create Employee</button>
+<button (click)="loadEmployees()">Get Employees</button>
 <table border="1">
-
-<button (click)="create()">Add Employee</button>
-
-  <button (click) ="loadEmployees()">Get Employees</button>
-
-
-<table>
   <tr>
-    <th>ID</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Emailid</th>
-    <th>Mobileno</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Mobile</th>
     <th>Actions</th>
   </tr>
 
   <tr *ngFor="let emp of employees">
-    <td>{{ emp.id }}</td>
     <td>{{ emp.firstname }}</td>
     <td>{{ emp.lastname }}</td>
     <td>{{ emp.emailid }}</td>
     <td>{{ emp.monbno }}</td>
     <td>
-      <button (click)="edit(emp.id!)">Edit</button>
+      <button (click)="openEdit(emp)">Edit</button>
       <button (click)="onDelete(emp.id!)">Delete</button>
     </td>
   </tr>
-
 </table>
+
+<!-- POPUP -->
+<div *ngIf="showPopup" class="popup">
+  <h3>{{ selectedId ? 'Update Employee' : 'Create Employee' }}</h3>
+
+  <form (ngSubmit)="submit()">
+    <input [(ngModel)]="employee.firstname" name="firstname" placeholder="First Name" required>
+    <input [(ngModel)]="employee.lastname" name="lastname" placeholder="Last Name" required>
+    <input [(ngModel)]="employee.emailid" name="emailid" placeholder="Email" required>
+    <input [(ngModel)]="employee.monbno" name="monbno" placeholder="Mobile" required>
+
+    <button type="submit">
+      {{ selectedId ? 'Update' : 'Create' }}
+    </button>
+    <button type="button" (click)="closePopup()">Cancel</button>
+  </form>
+</div>

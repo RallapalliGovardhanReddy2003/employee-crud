@@ -1,53 +1,84 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './employee-list.component.html'
 })
 export class EmployeeListComponent implements OnInit {
 
   employees: Employee[] = [];
 
-  constructor(
-    private service: EmployeeService,
-    private router: Router
-  ) {}
+  showPopup = false;
+  selectedId?: number;
+
+  employee: Employee = {
+    firstname: '',
+    lastname: '',
+    emailid: '',
+    monbno: 0
+  };
+
+  constructor(private service: EmployeeService) {}
 
   ngOnInit(): void {
     this.loadEmployees();
   }
 
   loadEmployees(): void {
-    this.service.getAllUsers().subscribe((data: Employee[]) => {
+    this.service.getAllUsers().subscribe(data => {
       this.employees = data;
     });
   }
 
-  create(): void {
-    this.router.navigate(['/employees/create']);
+  openCreate(): void {
+    this.selectedId = undefined;
+    this.employee = { firstname: '', lastname: '', emailid: '', monbno: 0 };
+    this.showPopup = true;
   }
 
-  edit(id: number): void {
-    this.router.navigate(['/employees/edit', id]);
+  openEdit(emp: Employee): void {
+    this.selectedId = emp.id;
+    this.employee = { ...emp };
+    this.showPopup = true;
   }
 
-  // ✅ RENAMED METHOD
-  onDelete(id: number): void {
-    if (window.confirm('Are you sure?')) {
-      this.service.deleteUser(id).subscribe({
-      next: () => {
-      this.loadEmployees();
-      },
-      error: (err) => {
-      console.error('Error deleting employee',err);
-      }
+  submit(): void {
+    if (this.selectedId) {
+      // UPDATE
+      this.service.updateUser(this.selectedId, this.employee).subscribe(() => {
+        alert('Employee updated successfully');
+        this.afterSave();
+      });
+    } else {
+      // CREATE
+      this.service.createUser(this.employee).subscribe(() => {
+        alert('Employee created successfully');
+        this.afterSave();
       });
     }
+  }
+
+  onDelete(id: number): void {
+    if (confirm('Are you sure you want to delete?')) {
+      this.service.deleteUser(id).subscribe(() => {
+        alert('Employee deleted successfully');
+        this.loadEmployees();
+      });
+    }
+  }
+
+  afterSave(): void {
+    this.showPopup = false;
+    this.loadEmployees();
+  }
+
+  closePopup(): void {
+    this.showPopup = false;
   }
 }
