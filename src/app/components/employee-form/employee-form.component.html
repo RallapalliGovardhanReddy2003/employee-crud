@@ -1,0 +1,26 @@
+<div class="container">
+  <h2 *ngIf="!id">Create Employee</h2>
+  <h2 *ngIf="id">Edit Employee</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label>First name</label>
+      <input formControlName="firstname" />
+      <div *ngIf="form.get('firstname')?.touched && form.get('firstname')?.invalid">First name is required</div>
+    </div>
+
+    <div>
+      <label>Last name</label>
+      <input formControlName="lastname" />
+      <div *ngIf="form.get('lastname')?.touched && form.get('lastname')?.invalid">Last name is required</div>
+    </div>
+
+    <div>
+      <label>Email</label>
+      <input formControlName="email" />
+      <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">Invalid email</div>
+    </div>
+    <button type="submit" (click)="submit()">Submit</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  </form>
+</div>
