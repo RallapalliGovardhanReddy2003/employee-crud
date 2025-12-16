@@ -54,6 +54,7 @@ export class EmployeeFormComponent implements OnInit {
       this.service.createUser(this.form.value).subscribe(() => {
         alert('Created successfully');
         this.form.reset();
+        this.router.navigate(['/employees']);
       });
     }
   }
