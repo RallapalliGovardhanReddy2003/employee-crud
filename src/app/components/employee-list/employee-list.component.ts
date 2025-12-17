@@ -16,6 +16,9 @@ export class EmployeeListComponent implements OnInit {
 
   showPopup = false;
   selectedId?: number;
+  sendEmail: boolean = false;
+  sendSms: boolean = false;
+
 
   employee: Employee = {
     firstname: '',
@@ -39,12 +42,16 @@ export class EmployeeListComponent implements OnInit {
   openCreate(): void {
     this.selectedId = undefined;
     this.employee = { firstname: '', lastname: '', emailid: '', monbno: 0 };
+    this.sendEmail=false;
+    this.sendSms=false;
     this.showPopup = true;
   }
 
   openEdit(emp: Employee): void {
     this.selectedId = emp.id;
     this.employee = { ...emp };
+    this.sendEmail=false;
+    this.sendSms=false;
     this.showPopup = true;
   }
 
@@ -57,7 +64,8 @@ export class EmployeeListComponent implements OnInit {
       });
     } else {
       // CREATE
-      this.service.createUser(this.employee).subscribe(() => {
+      this.service.createUserWithFlags(this.employee,this.sendEmail,this.sendSms
+      ).subscribe(() => {
         alert('Employee created successfully');
         this.afterSave();
       });

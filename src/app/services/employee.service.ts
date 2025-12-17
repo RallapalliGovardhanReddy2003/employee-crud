@@ -12,10 +12,18 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) {}
 
+
+
   createUser(employee: Employee): Observable<Employee> {
-  return this.http.post<Employee>('${this.baseUrl}/createuser',employee)
+  return this.http.post<Employee>(`${this.baseUrl}/createuser`,employee)
   };
 
+   createUserWithFlags(employee: Employee, sendEmail: boolean, sendSms: boolean) {
+       return this.http.post(
+         `${this.baseUrl}/createuser?sendEmail=${sendEmail}&sendSms=${sendSms}`,
+         employee
+       );
+     }
   getAllUsers(): Observable<Employee[]> {
     return this.http.get<Employee[]>(`${this.baseUrl}/getallusers`);
   }
@@ -32,7 +40,7 @@ export class EmployeeService {
 
   deleteUser(id: number) {
     return this.http.delete<void>(
-      `http://localhost:8085/User/harddelete/${id}`
+      `${this.baseUrl}/harddelete/${id}`
     );
   }
   getAllUsersWithDeleted(): Observable<Employee[]> {

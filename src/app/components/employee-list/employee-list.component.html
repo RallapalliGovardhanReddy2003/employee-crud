@@ -33,6 +33,17 @@
     <input [(ngModel)]="employee.emailid" name="emailid" placeholder="Email" required>
     <input [(ngModel)]="employee.monbno" name="monbno" placeholder="Mobile" required>
 
+    <label>
+      <input type="checkbox" [(ngModel)]="sendEmail" name="sendEmail">
+      Send Email
+    </label>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="sendSms" name="sendSms">
+      Send SMS
+    </label>
+
+    <br><br>
     <button type="submit">
       {{ selectedId ? 'Update' : 'Create' }}
     </button>
