@@ -15,7 +15,7 @@
     <td>{{ emp.firstname }}</td>
     <td>{{ emp.lastname }}</td>
     <td>{{ emp.emailid }}</td>
-    <td>{{ emp.monbno }}</td>
+    <td>{{ emp.mobileno }}</td>
     <td>
       <button (click)="openEdit(emp)">Edit</button>
       <button (click)="onDelete(emp.id!)">Delete</button>
@@ -31,7 +31,7 @@
     <input [(ngModel)]="employee.firstname" name="firstname" placeholder="First Name" required>
     <input [(ngModel)]="employee.lastname" name="lastname" placeholder="Last Name" required>
     <input [(ngModel)]="employee.emailid" name="emailid" placeholder="Email" required>
-    <input [(ngModel)]="employee.monbno" name="monbno" placeholder="Mobile" required>
+    <input [(ngModel)]="employee.mobileno" name="mobileno" placeholder="Mobile No" required>
 
     <label>
       <input type="checkbox" [(ngModel)]="sendEmail" name="sendEmail">
