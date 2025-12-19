@@ -24,7 +24,8 @@ export class EmployeeListComponent implements OnInit {
     firstname: '',
     lastname: '',
     emailid: '',
-    mobileno: 0
+    mobileno: 0,
+    employeeId: 0
   };
 
   constructor(private service: EmployeeService) {}
@@ -41,7 +42,7 @@ export class EmployeeListComponent implements OnInit {
 
   openCreate(): void {
     this.selectedId = undefined;
-    this.employee = { firstname: '', lastname: '', emailid: '', mobileno: 0 };
+    this.employee = { firstname: '', lastname: '', emailid: '', mobileno: 0, employeeId: 0 };
     this.sendEmail=false;
     this.sendSms=false;
     this.showPopup = true;

@@ -4,4 +4,5 @@ export interface Employee {
   lastname: string;
   emailid: string;   // ✅ ADD THIS
   mobileno: number;
+  employeeId: number;
 }
